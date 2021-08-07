@@ -32,7 +32,7 @@ const ProductCarousel = () => {
                                 fluid
                             />
                             <Carousel.Caption className='carousel-caption'>
-                                <h2>{product.name} ({product.price})</h2>
+                                <h2>{product.name} (${product.price})</h2>
                             </Carousel.Caption>
                         </Link>
                     </Carousel.Item>

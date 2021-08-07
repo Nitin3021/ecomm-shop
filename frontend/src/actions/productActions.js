@@ -207,7 +207,6 @@ export const listTopProducts = () => async (dispatch) => {
         dispatch({ type: PRODUCT_TOP_REQUEST })
 
         const { data } = await axios.get(`/api/products/top`)
-        console.log('where')
 
         dispatch({
             type: PRODUCT_TOP_SUCCESS,
