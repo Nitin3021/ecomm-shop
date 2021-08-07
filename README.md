@@ -5,6 +5,8 @@ Welcome to my personal project! I am working on this whenever I can. Basically, 
 
 <ins>Work is still in progress and I would be happy to share more details upon the project completion!</ins>
 
+![screenshot](https://github.com/Nitin3021/ecommerce-platform/blob/main/uploads/gitImages/ecommshop.jpg)
+
 ## Features
 
 - Full featured shopping cart
