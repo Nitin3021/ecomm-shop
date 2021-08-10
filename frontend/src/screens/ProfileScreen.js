@@ -8,7 +8,7 @@ import { getUserDetails, updateUserProfile } from '../actions/userActions'
 import { listMyOrders } from '../actions/orderActions'
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 
-const ProfileScreen = ({ history, location }) => {
+const ProfileScreen = ({ history }) => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -33,10 +33,10 @@ const ProfileScreen = ({ history, location }) => {
         if (!userInfo) {
             history.push('/login')
         } else {
+            dispatch(listMyOrders())
             if (!user || !user.name || success) {
                 dispatch({ type: USER_UPDATE_PROFILE_RESET })
                 dispatch(getUserDetails('profile'))
-                dispatch(listMyOrders())
             } else {
                 setName(user.name)
                 setEmail(user.email)
