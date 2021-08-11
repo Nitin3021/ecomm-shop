@@ -26,29 +26,40 @@ const HomeScreen = ({ match }) => {
     return (
         <>
             <Meta />
-            {!keyword ? <ProductCarousel /> :
-                <Link to='/' className='btn btn-light'>Go back</Link>}
+            {!keyword ? (
+                <ProductCarousel />
+            ) : (
+                <Link to='/' className='btn btn-light'>Go back</Link>
+            )}
             <h1>Latest Products</h1>
-            {keyword && <p>Displaying results for <strong>'{keyword}'</strong></p>}
+            {keyword && (
+                <p>
+                    Displaying results for <strong>'{keyword}'</strong>
+                </p>
+            )}
             {loading ? (
                 <Loader />
             ) : error ? (
                 <Message variant='danger'>{error}</Message>
             ) : (
-                <>
-                    <Row>
-                        {products.map(product => (
-                            <Col key={product._id} sm={12} md={6} lg={4} xl={3} >
-                                <Product product={product} />
-                            </Col>
-                        ))}
-                    </Row>
-                    <Paginate
-                        pages={pages}
-                        page={page}
-                        keyword={keyword ? keyword : ''}
-                    />
-                </>
+                products.length === 0 ? (
+                    <Message variant='info'>Oops! No product found, please try another search</Message>
+                ) : (
+                    <>
+                        <Row>
+                            {products.map(product => (
+                                <Col key={product._id} sm={12} md={6} lg={4} xl={3} >
+                                    <Product product={product} />
+                                </Col>
+                            ))}
+                        </Row>
+                        <Paginate
+                            pages={pages}
+                            page={page}
+                            keyword={keyword ? keyword : ''}
+                        />
+                    </>
+                )
             )}
         </>
     )

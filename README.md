@@ -1,11 +1,12 @@
 # E-commerce platform
 
 ## Overview
-Welcome to my personal project! I am working on this whenever I can. Basically, my idea behind this is to build a fully functional E-commerce platform (like Amazon, Ebay, etc.) using MERN stack and Redux. There will be separate functions available for a User (customer) & an website Admin. 
+
+Welcome to my personal project! I am working on this whenever I can. Basically, my idea behind this is to build a fully functional E-commerce platform (like Amazon, Ebay, etc.) using MERN stack and Redux. There will be separate functions available for a User (customer) & an website Admin.
 
 <ins>Work is still in progress and I would be happy to share more details upon the project completion!</ins>
 
-![screenshot](https://github.com/Nitin3021/ecommerce-platform/blob/main/uploads/gitImages/ecommshop.jpg)
+![screenshot](https://github.com/Nitin3021/ecommerce-platform/blob/01cde8a1f6b90fedbe4ee04b02bd2efe1a6735f5/uploads/gitImages/ecommshop.JPG)
 
 ## Features
 
