@@ -1,12 +1,15 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import CheckoutSteps from '../components/CheckoutSteps'
 import { createOrder } from '../actions/orderActions'
+import CouponUtility from '../components/CouponUtility'
 
-const PlaceOrderScreen = ({ history }) => {
+const PlaceOrderScreen = ({ history, match }) => {
+    const [couponPrice, setCouponPrice] = useState(0)
+
     const dispatch = useDispatch()
     const cart = useSelector(state => state.cart)
 
@@ -22,7 +25,12 @@ const PlaceOrderScreen = ({ history }) => {
 
     cart.shippingPrice = addDecimals(cart.itemsPrice > 100 ? 0 : 100)
     cart.taxPrice = addDecimals(Number((0.15 * cart.itemsPrice).toFixed(2)))
-    cart.totalPrice = (Number(cart.itemsPrice) + Number(cart.shippingPrice) + Number(cart.taxPrice)).toFixed(2)
+    cart.totalPrice = (
+        Number(cart.itemsPrice) +
+        Number(cart.shippingPrice) +
+        Number(cart.taxPrice) -
+        Number(couponPrice)
+    ).toFixed(2)
 
     const orderCreate = useSelector(state => state.orderCreate)
     const { order, success, error } = orderCreate
@@ -31,8 +39,12 @@ const PlaceOrderScreen = ({ history }) => {
         if (success) {
             history.push(`/order/${order._id}`)
         }
+
+        if (match.params.coupon) {
+            setCouponPrice(10)
+        }
         // eslint-disable-next-line
-    }, [history, success])
+    }, [history, success, match.params.coupon])
 
     const placeOrderHandler = () => {
         dispatch(createOrder({
@@ -125,6 +137,15 @@ const PlaceOrderScreen = ({ history }) => {
                                 </Row>
                             </ListGroup.Item>
 
+                            {couponPrice !== 0 &&
+                                <ListGroup.Item>
+                                    <Row>
+                                        <Col>Coupon</Col>
+                                        <Col>- ${couponPrice}</Col>
+                                    </Row>
+                                </ListGroup.Item>
+                            }
+
                             <ListGroup.Item>
                                 <Row>
                                     <Col>Total</Col>
@@ -133,8 +154,14 @@ const PlaceOrderScreen = ({ history }) => {
                             </ListGroup.Item>
 
                             <ListGroup.Item>
-                                {error && <Message variant='danger'>{error}</Message>}
+                                <CouponUtility history={history} />
                             </ListGroup.Item>
+
+                            {error &&
+                                <ListGroup.Item>
+                                    <Message variant='danger'>{error}</Message>
+                                </ListGroup.Item>
+                            }
 
                             <ListGroup.Item>
                                 <Button
